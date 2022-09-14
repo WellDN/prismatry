@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["orderByNulls"]  //sort by relevance (PostgreeSQL)
 }
 
 datasource db {
@@ -14,7 +15,7 @@ model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
-  posts Post[]
+  posts Post[]  //user can have many posts
 }
 
 model Post {

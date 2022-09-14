@@ -3,15 +3,20 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
-  const usersWithPosts = await prisma.user.findMany({   //thing are automatically saved in data and replace by a function
-    include: {
-      posts: true,
+  const res = await prisma.post.findMany({
+    where: {
+      author: {
+        email: {
+          contains: 'prisma.io',  //the following query returns all posts where the author's email contains "prisma.io"
+        },
+      },
     },
   })
-  console.dir(usersWithPosts, { depth: null })  //the objects in usersWithPosts array are fully typed.
+  console.log(res);
 }
 
-main()
+
+ main()
   .then(async () => {
     await prisma.$disconnect()
   })
